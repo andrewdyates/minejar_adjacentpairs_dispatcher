@@ -2,6 +2,9 @@
 """Compile MINE.jar results into a squareform numpy dependency matrix.
 
 Revised June 20th, 2012
+USG:
+
+python script.py tab_fname.tab minefile1.out minefile2.out ...
 """
 import sys
 import numpy as np
@@ -64,4 +67,4 @@ def main(tab_fname, minefiles):
 
 
 if __name__ == "__main__":
-  main(sys.argv[1], *sys.argv[1:])
+  main(sys.argv[1], sys.argv[2:])
