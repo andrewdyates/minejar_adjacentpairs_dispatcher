@@ -18,7 +18,7 @@ def main(bool_m_fname, varlist_fname, tab_fname):
     if line[0] == '#': continue
     name,c,row = line.partition('\t')
     M[name] = line.strip('\n')
-  fp.close(tab_fname)
+  fp.close()
   # assert that all variables have been accounted
   assert not (set(varlist) - set(M.keys()))
     
