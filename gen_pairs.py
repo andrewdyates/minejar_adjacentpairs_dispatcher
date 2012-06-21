@@ -1,7 +1,12 @@
 #!/usr/bin/python
 """From a boolean matrix of missing values, print pairs of missing variables.
-
 varlist_fname order corresponds with bool_m_fname
+
+USE:
+python gen_pairs.py bool_m_fname, varlist_fname, tab_fname > missing_vars.tab
+
+EXAMPLE:
+python gen_pairs.py GSE2034.GPL96.eQTL.tab.compiled.bools.npy GSE2034.GPL96.eQTL.tab.varlist.txt GSE2034.GPL96.eQTL.tab
 """
 import sys
 import numpy as np
@@ -11,11 +16,12 @@ def main(bool_m_fname, varlist_fname, tab_fname):
   # load bool matrix
   B = np.load(bool_m_fname)
   # read tabfile as {varname => str}
-  varlist = [s for s in open(varlist_fname)]
+  varlist = [s.strip() for s in open(varlist_fname)]
   M = {}
   fp = open(tab_fname)
   for line in fp:
-    if line[0] == '#': continue
+    if line[0] == '#' or not line.strip():
+      continue
     name,c,row = line.partition('\t')
     M[name] = line.strip('\n')
   fp.close()
