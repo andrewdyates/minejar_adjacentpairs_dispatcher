@@ -63,7 +63,7 @@ def main(tab_fname, minefiles):
   for name in varlist:
     fp.write("%s\n" % name)
   print "Set %d of %d variable pair values (%.2f%%)." %\
-    (n_set, len(V), float(n_set)/len(V)*100)
+    (n_set, V.n, float(n_set)/V.n*100)
 
 
 if __name__ == "__main__":
