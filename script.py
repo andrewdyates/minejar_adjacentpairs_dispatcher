@@ -33,7 +33,7 @@ def tab_to_varlist(tab_fname):
   for line in fp:
     if line[0] == "#": continue
     var,c,cc = line.partition('\t')
-    varlist.append(var)
+    varlist.append(var.strip('\n'))
   fp.close()
   return varlist
 
@@ -47,9 +47,9 @@ def populate_matrix(fp, M_Dict, B):
   Returns:
     (int, int) of num pairs set and skipped respectively
   """
+  n_set = 0
+  n_dupe = 0
   for line in fp:
-    n_set = 0
-    n_dupe = 0
     row = line.strip().split(',')
     # skip blanks or header lines
     if not row or row[0] == "X var":
@@ -62,7 +62,7 @@ def populate_matrix(fp, M_Dict, B):
         M_Dict[m_name].set(x,y,v[i])
     else:
       n_dupe += 1
-    fp.close()
+
   return n_set, n_dupe
     
 
