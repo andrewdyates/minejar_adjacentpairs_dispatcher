@@ -58,7 +58,7 @@ def populate_matrix(fp, M_Dict, B):
     v = map(np.float, row[2:])
     if not B.get(x,y):
       n_set += 1
-      B.set(x,y)
+      B.set(x,y,1)
       for i, m_name in enumerate(M_NAMES):
         M_Dict[m_name].set(x,y,v[i])
     else:
