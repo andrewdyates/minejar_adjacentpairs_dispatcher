@@ -2,7 +2,7 @@
 import numpy as np
 import sys
 
-def main()
+def main():
   m_fname = sys.argv[1]
   print "Loading %s..." % m_fname
   M = np.load(sys.argv[1])
