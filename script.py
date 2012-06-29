@@ -58,6 +58,7 @@ def populate_matrix(fp, M_Dict, B):
     v = map(np.float, row[2:])
     if not B.get(x,y):
       n_set += 1
+      B.set(x,y)
       for i, m_name in enumerate(M_NAMES):
         M_Dict[m_name].set(x,y,v[i])
     else:
@@ -75,6 +76,9 @@ def main(outdir, tab_fname, minefiles):
   outdir = os.path.expanduser(outdir)
   
   varlist = tab_to_varlist(tab_fname)
+  m = len(varlist)
+  n_expected = m*(m-1)/2
+  print "m=%d; expected num pairs=%d" % (m, n_expected)
 
   # for each matrix name, assign it a value matrix
   M_Dict = {}
@@ -84,12 +88,21 @@ def main(outdir, tab_fname, minefiles):
   B = NamedSymmetricMatrix(varlist, store_diagonal=False, dtype=np.bool)
 
   # For each MINE.jar results file, load into the matrices
+  n_set_total = 0
+  n_dupe_total = 0
   for fname in minefiles:
     fp = open(fname, 'r')
     n_set, n_dupe = populate_matrix(fp, M_Dict, B)
     fp.close()
     print "Set %d pairs from MINE.jar results file %s. Skipped %d dupes." % \
       (n_set, fname, n_dupe)
+    n_set_total += n_set
+    n_dupe_total += n_dupe
+  print "===================="
+  print "Completed reading pairs from MINE.jar results"
+  print "%d total pairs set (%d dupes skipped), expected %d." % \
+    (n_set_total, n_dupe_total, n_expected)
+  
     
   # Save matrices to disk.
   # Save only the underlying numpy matrix of the NamedMatrix. (._m)
