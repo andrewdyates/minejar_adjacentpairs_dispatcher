@@ -31,7 +31,7 @@ def tab_to_varlist(tab_fname):
   fp = open(tab_fname)
   varlist = []
   for line in fp:
-    if line[0] == "#": continue
+    if line[0] == "#" or line[0] == '\n': continue
     var,c,cc = line.partition('\t')
     varlist.append(var.strip('\n'))
   fp.close()
