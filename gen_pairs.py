@@ -36,14 +36,17 @@ def main(bool_m_fname, varlist_fname, tab_fname):
     name,c,row = line.partition('\t')
     varlist.append(name.strip('\n'))
   fp.close()
-  
+
+  n = len(varlist)
   # assert that all variables have been accounted
   assert not (set(varlist) - set(M.keys()))
+  print (n*n-1)/2, len(B), (n*n-1)/2 - len(B)
+  assert (n*n-1)/2 == len(B)
     
   # for each 0 in B, print pair of corresponding vars
   varset = set()
-  for i in np.where(B == 0):
-    x, y = inv_sym_idx(i, len(varlist))
+  for i in np.where(B == 0)[0]:
+    x, y = inv_sym_idx(i, n)
     print M[varlist[x]]
     print M[varlist[y]]
     varset.add(varlist[x])
