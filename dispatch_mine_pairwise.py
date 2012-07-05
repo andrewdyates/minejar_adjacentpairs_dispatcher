@@ -37,6 +37,8 @@ def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:
   # read bool matrix to get number of missing pairs
   B = np.load(bool_fname)
   n = np.size(np.where(B == 0)[0])
+  print "%d missing pairs as per %s." % (n, bool_fname)
+  
   # generate job script 
   script_path = os.path.dirname(os.path.realpath(__file__))
   offset = 0
