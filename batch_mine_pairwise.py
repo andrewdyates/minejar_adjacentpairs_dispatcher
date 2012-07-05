@@ -59,9 +59,9 @@ def main(tab_fname=None, bool_fname=None, offset=0, k=200000, work_dir='/fs/lust
   fp.close()
 
   cmd = 'java -jar %s "%s" -adjacentPairs' % (minejar_path, tmp_filename)
-  print "Running MINE.jar job on %s..."
+  print "Running MINE.jar job on %s..." % tmp_filename
   print cmd
-  subprocess.call(cmd)
+  subprocess.call(cmd, shell=True)
 
   print "Deleting temporary input file %s..." % tmp_filename
   os.remove(tmp_filename)
