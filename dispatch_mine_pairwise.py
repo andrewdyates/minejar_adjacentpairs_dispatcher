@@ -34,6 +34,8 @@ CMD = "python %(script_path)s/batch_mine_pairwise.py tab_fname=%(tab_fname)s boo
 def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:00', work_dir='/fs/lustre/osu6683', minejar_path="/fs/lustre/osu6683/MINE.jar", tab_fname=None, bool_fname=None, dry=False):
   assert tab_fname, bool_fname
   k = int(k)
+  n_nodes = int(n_nodes)
+  n_ppn = int(n_ppn)
   
   # read bool matrix to get number of missing pairs
   B = np.load(bool_fname)
