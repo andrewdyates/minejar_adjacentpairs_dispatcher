@@ -13,18 +13,30 @@ import numpy as np
 from py_symmetric_matrix import *
 
 def main(bool_m_fname, varlist_fname, tab_fname):
+  
   # load bool matrix
   B = np.load(bool_m_fname)
+  
   # read tabfile as {varname => str}
-  varlist = [s.strip() for s in open(varlist_fname)]
   M = {}
   fp = open(tab_fname)
   for line in fp:
-    if line[0] == '#' or not line.strip():
+    if line[0] in ('#' or '\n'):
       continue
     name,c,row = line.partition('\t')
     M[name] = line.strip('\n')
   fp.close()
+
+  # Read varlist
+  varlist = []
+  fp = open(varlist_fname)
+  for line in fp:
+    if line[0] in ('#' or '\n'):
+      continue
+    name,c,row = line.partition('\t')
+    varlist.append(name.strip('\n'))
+  fp.close()
+  
   # assert that all variables have been accounted
   assert not (set(varlist) - set(M.keys()))
     
