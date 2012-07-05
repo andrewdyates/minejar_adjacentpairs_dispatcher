@@ -53,6 +53,7 @@ def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:
       'minejar_path': minejar_path
       }
     fp.write(cmd + '\n')
+    offset += k
   fp.close()
   
   # submit job script
