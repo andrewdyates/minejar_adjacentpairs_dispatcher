@@ -41,11 +41,19 @@ def main(bool_m_fname, varlist_fname, tab_fname):
   assert not (set(varlist) - set(M.keys()))
     
   # for each 0 in B, print pair of corresponding vars
-  for i, v in enumerate(B):
-    if v == 0:
-      x, y = inv_sym_idx(i, len(varlist))
-      print M[varlist[x]]
-      print M[varlist[y]]
+  varset = set()
+  for i in np.where(B == 0):
+    x, y = inv_sym_idx(i, len(varlist))
+    print M[varlist[x]]
+    print M[varlist[y]]
+    varset.add(varlist[x])
+    varset.add(varlist[y])
+
+  # Write list of variable names with at least one missing row.
+  sys.stderr.write("%d variables with at least one missing pair." % len(varset))
+  sys.stderr.write('\n'.join(varset))
+  sys.stderr.write('\n')
+  
 
 if __name__ == "__main__":
   main(*sys.argv[1:])
