@@ -53,7 +53,7 @@ def main(bool_m_fname, varlist_fname, tab_fname):
     varset.add(varlist[y])
 
   # Write list of variable names with at least one missing row.
-  sys.stderr.write("%d variables with at least one missing pair." % len(varset))
+  sys.stderr.write("%d variables with at least one missing pair.\n" % len(varset))
   sys.stderr.write('\n'.join(varset))
   sys.stderr.write('\n')
   
