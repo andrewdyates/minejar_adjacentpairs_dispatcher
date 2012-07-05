@@ -13,7 +13,7 @@ import os
 from py_symmetric_matrix import *
 
 
-def main(tab_fname=None, bool_fname=None, offset=0, k=200000, work_dir='/fs/lustre/osu6683', minejar_path="/fs/lustre/osu6683/MINE.jar", logfile=None):
+def main(tab_fname=None, bool_fname=None, offset=0, k=200000, work_dir='/fs/lustre/osu6683', minejar_path="/fs/lustre/osu6683/MINE.jar"):
   offset = int(offset)
   k = int(k)
   assert tab_fname
