@@ -14,6 +14,7 @@ import sys
 import numpy as np
 import subprocess
 import os
+import datetime
 
 TEMPLATE = \
 """#PBS -N %(jobname)s
@@ -45,7 +46,8 @@ def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:
   # generate job script 
   script_path = os.path.dirname(os.path.realpath(__file__))
   offset = 0
-  dispatch_script_fname= os.path.join(work_dir, "tmp_script_%s.sh" % os.path.basename(tab_fname))
+  tstamp = datetime.datetime.isoformat(datetime.datetime.now())
+  dispatch_script_fname = os.path.join(work_dir, "tmp_script_%s_%s.sh" % (os.path.basename(tab_fname), tstamp))
   print "Creating batch script '%s'..." % dispatch_script_fname
   fp = open(dispatch_script_fname, 'w')
   n_jobs = 0
