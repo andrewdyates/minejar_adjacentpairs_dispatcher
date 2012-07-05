@@ -40,8 +40,8 @@ def main(bool_m_fname, varlist_fname, tab_fname):
   n = len(varlist)
   # assert that all variables have been accounted
   assert not (set(varlist) - set(M.keys()))
-  print (n*n-1)/2, len(B), (n*n-1)/2 - len(B)
-  assert (n*n-1)/2 == len(B)
+  print "Expected size: %d. Actual size: %d." % (n*(n-1)/2, len(B))
+  assert n*(n-1)/2 == len(B)
     
   # for each 0 in B, print pair of corresponding vars
   varset = set()
