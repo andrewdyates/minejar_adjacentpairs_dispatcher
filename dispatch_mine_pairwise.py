@@ -30,7 +30,7 @@ source .bash_profile
 mpiexec parallel-command-processor %(dispatch_script)s
 """
 
-CMD = "python %(script_path)s/batch_mine_pairwise.py tab_fname=%(tab_fname)s bool_fname=%(bool_fname)s offset=%(offset)d k=%(k)d minejar_path=%(minejar_path)s"
+CMD = "python %(script_path)s/batch_mine_pairwise.py tab_fname=%(tab_fname)s bool_fname=%(bool_fname)s offset=%(offset)d k=%(k)d minejar_path=%(minejar_path)s >> %(stdout_fname) 2>> %(stderr_fname)"
 
 def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:00', work_dir='/fs/lustre/osu6683', minejar_path="/fs/lustre/osu6683/MINE.jar", tab_fname=None, bool_fname=None, dry=False):
   assert tab_fname, bool_fname
@@ -43,7 +43,7 @@ def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:
   n = np.size(np.where(B == 0)[0])
   print "%d missing pairs as per %s." % (n, bool_fname)
   
-  # generate job script 
+  # generate job script
   script_path = os.path.dirname(os.path.realpath(__file__))
   offset = 0
   tstamp = datetime.datetime.isoformat(datetime.datetime.now())
@@ -58,7 +58,9 @@ def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:
       'bool_fname': bool_fname, 
       'offset': offset, 
       'k': k,
-      'minejar_path': minejar_path
+      'minejar_path': minejar_path,
+      'stdout_fname': os.path.join(work_dir, "log_"+jobname+"_"+tstamp+".out"),
+      'stderr_fname': os.path.join(work_dir, "log_"+jobname+"_"+tstamp+".err"),
       }
     fp.write(cmd + '\n')
     offset += k
