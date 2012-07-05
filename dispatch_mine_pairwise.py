@@ -46,6 +46,7 @@ def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:
   dispatch_script_fname= os.path.join(work_dir, "tmp_script_%s.sh" % os.path.basename(tab_fname))
   print "Creating batch script '%s'..." % dispatch_script_fname
   fp = open(dispatch_script_fname, 'w')
+  n_jobs = 0
   while offset < n:
     cmd = CMD % {
       'script_path': script_path, 
@@ -57,7 +58,9 @@ def main(k=100000, jobname='dispatch_mine', n_nodes=13, n_ppn=4, walltime='6:00:
       }
     fp.write(cmd + '\n')
     offset += k
+    n_jobs += 1
   fp.close()
+  print "Generated %d jobs in batch file..." % n_jobs
   
   # submit job script
   qsub_script = TEMPLATE % {'jobname': jobname, 'n_nodes': n_nodes, 'n_ppn': n_ppn, 'walltime': walltime, 'dispatch_script': dispatch_script_fname}
